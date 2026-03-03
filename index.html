@@ -3,675 +3,266 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Biology First Paper — MCQ Quiz</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<title>Biology MCQ — Grade XII</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #f7f3ec;
-    --paper: #fffdf8;
-    --ink: #1a1208;
-    --accent: #3d5a3e;
-    --accent-light: #e8f0e8;
-    --wrong: #7a1f1f;
-    --wrong-light: #f5e6e6;
-    --correct: #1f5c2e;
-    --correct-light: #e6f5ea;
-    --border: #c8b99a;
-    --muted: #6b5a3e;
-    --gold: #b8860b;
+    --cream: #faf8f3;
+    --warm-white: #fff9f0;
+    --ink: #1a1612;
+    --ink-light: #4a4035;
+    --accent: #c8703a;
+    --accent-light: #f0e4d4;
+    --green: #3a7d44;
+    --green-light: #d4edda;
+    --red: #c0392b;
+    --red-light: #fde8e6;
+    --gold: #d4a017;
+    --border: #e0d5c5;
+    --shadow: 0 2px 12px rgba(26,22,18,0.08);
+    --shadow-hover: 0 6px 24px rgba(26,22,18,0.14);
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    background: var(--bg);
-    font-family: 'Source Serif 4', Georgia, serif;
-    color: var(--ink);
-    min-height: 100vh;
-    padding: 0 0 60px;
-  }
-
-  /* Header */
-  .header {
-    background: var(--ink);
-    color: var(--bg);
-    text-align: center;
-    padding: 36px 20px 28px;
-    position: relative;
-    overflow: hidden;
-  }
-  .header::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 39px,
-      rgba(255,255,255,0.04) 39px,
-      rgba(255,255,255,0.04) 40px
-    );
-  }
-  .school-name {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.4rem, 4vw, 2.2rem);
-    letter-spacing: 0.04em;
-    position: relative;
-  }
-  .subtitle {
-    font-size: 0.9rem;
-    font-weight: 300;
-    font-style: italic;
-    color: #c8b99a;
-    margin-top: 6px;
-    position: relative;
-    letter-spacing: 0.08em;
-  }
-  .meta-row {
-    display: flex;
-    justify-content: center;
-    gap: 32px;
-    margin-top: 16px;
-    font-size: 0.82rem;
-    font-weight: 300;
-    color: #a89070;
-    position: relative;
-  }
-  .meta-row span { border-left: 1px solid #444; padding-left: 16px; }
-  .meta-row span:first-child { border-left: none; padding-left: 0; }
-
-  /* Progress */
-  .progress-bar-wrap {
-    background: #e0d9ce;
-    height: 4px;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-  }
-  .progress-bar {
-    height: 100%;
-    background: var(--gold);
-    width: 0%;
-    transition: width 0.4s ease;
-  }
-
-  /* Score badge */
-  .score-panel {
-    position: sticky;
-    top: 4px;
-    z-index: 9;
-    display: flex;
-    justify-content: flex-end;
-    padding: 8px 24px 0;
-    pointer-events: none;
-  }
-  .score-badge {
-    background: var(--ink);
-    color: var(--bg);
-    font-family: 'Playfair Display', serif;
-    font-size: 0.85rem;
-    padding: 6px 16px;
-    border-radius: 2px;
-    letter-spacing: 0.05em;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.2);
-  }
-
-  /* Main container */
-  .container {
-    max-width: 860px;
-    margin: 0 auto;
-    padding: 40px 20px 20px;
-  }
-
-  /* Section label */
-  .section-label {
-    font-family: 'Playfair Display', serif;
-    font-size: 0.75rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 24px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .section-label::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
-
-  /* Question card */
-  .q-card {
-    background: var(--paper);
-    border: 1px solid var(--border);
-    border-radius: 3px;
-    padding: 24px 28px;
-    margin-bottom: 20px;
-    transition: box-shadow 0.2s;
-    position: relative;
-  }
-  .q-card:hover {
-    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-  }
-  .q-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 0.7rem;
-    color: var(--gold);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-  .q-text {
-    font-size: 1rem;
-    line-height: 1.65;
-    font-weight: 400;
-    margin-bottom: 18px;
-    color: var(--ink);
-  }
-  .q-text em {
-    font-style: italic;
-    color: var(--muted);
-  }
-  .stmt-list {
-    margin: 8px 0 12px 16px;
-    font-size: 0.92rem;
-    line-height: 1.7;
-    color: #3a2e1a;
-  }
-  .stmt-list li { margin-bottom: 2px; }
-
-  /* Options */
-  .options {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-  }
-  @media (max-width: 500px) { .options { grid-template-columns: 1fr; } }
-
-  .opt-btn {
-    background: none;
-    border: 1.5px solid var(--border);
-    border-radius: 2px;
-    padding: 10px 16px;
-    text-align: left;
-    font-family: 'Source Serif 4', serif;
-    font-size: 0.91rem;
-    color: var(--ink);
-    cursor: pointer;
-    transition: all 0.18s ease;
-    display: flex;
-    align-items: baseline;
-    gap: 10px;
-    line-height: 1.5;
-  }
-  .opt-btn:hover:not(:disabled) {
-    background: var(--accent-light);
-    border-color: var(--accent);
-    color: var(--accent);
-  }
-  .opt-btn .opt-label {
-    font-family: 'Playfair Display', serif;
-    font-size: 0.78rem;
-    color: var(--gold);
-    flex-shrink: 0;
-    letter-spacing: 0.05em;
-  }
-  .opt-btn:disabled { cursor: default; }
-
-  /* States */
-  .opt-btn.correct {
-    background: var(--correct-light);
-    border-color: var(--correct);
-    color: var(--correct);
-    font-weight: 600;
-  }
-  .opt-btn.wrong {
-    background: var(--wrong-light);
-    border-color: var(--wrong);
-    color: var(--wrong);
-  }
-  .opt-btn.reveal-correct {
-    background: var(--correct-light);
-    border-color: var(--correct);
-    color: var(--correct);
-    font-weight: 600;
-  }
-
-  /* Feedback icon */
-  .q-card.answered::after {
-    content: attr(data-icon);
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 1.1rem;
-  }
-
-  /* Stem figures */
-  .stem-fig {
-    background: var(--paper);
-    border: 1px solid var(--border);
-    border-radius: 3px 3px 0 0;
-    padding: 20px 28px 16px;
-    margin-bottom: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-  }
-  .stem-fig + .q-card {
-    border-top: 1px dashed var(--border);
-    border-radius: 0 0 3px 3px;
-    margin-top: 0;
-  }
-  .stem-fig-label {
-    font-family: 'Playfair Display', serif;
-    font-size: 0.72rem;
-    letter-spacing: 0.1em;
-    color: var(--gold);
-    text-transform: uppercase;
-    align-self: flex-start;
-  }
-  .stem-fig svg {
-    filter: drop-shadow(0 1px 3px rgba(0,0,0,0.08));
-  }
-
-  /* Final result */
-  .result-panel {
-    display: none;
-    background: var(--ink);
-    color: var(--bg);
-    border-radius: 3px;
-    padding: 36px;
-    text-align: center;
-    margin-top: 40px;
-  }
-  .result-panel.show { display: block; animation: fadeUp 0.5s ease; }
-  .result-score {
-    font-family: 'Playfair Display', serif;
-    font-size: 3.5rem;
-    color: var(--gold);
-    line-height: 1;
-  }
-  .result-label {
-    font-size: 0.85rem;
-    color: #a89070;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    margin-top: 8px;
-  }
-  .result-msg {
-    font-style: italic;
-    color: #c8b99a;
-    margin-top: 16px;
-    font-size: 1rem;
-  }
-  .reset-btn {
-    margin-top: 24px;
-    background: var(--gold);
-    border: none;
-    color: var(--ink);
-    font-family: 'Playfair Display', serif;
-    font-size: 0.9rem;
-    padding: 12px 32px;
-    border-radius: 2px;
-    cursor: pointer;
-    letter-spacing: 0.08em;
-    transition: opacity 0.2s;
-  }
-  .reset-btn:hover { opacity: 0.85; }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); min-height: 100vh; }
+  header { background: var(--ink); color: var(--cream); text-align: center; padding: 28px 20px 22px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 16px rgba(0,0,0,0.2); }
+  header h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.3rem, 3vw, 1.9rem); letter-spacing: 0.02em; margin-bottom: 4px; }
+  header p { font-size: 0.8rem; color: #b5a990; letter-spacing: 0.08em; text-transform: uppercase; }
+  .tab-nav { display: flex; justify-content: center; background: #2a2420; border-bottom: 3px solid var(--accent); }
+  .tab-btn { font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 14px 36px; background: transparent; color: #b5a990; border: none; cursor: pointer; transition: all 0.25s; position: relative; }
+  .tab-btn.active { color: var(--accent); background: rgba(200,112,58,0.1); }
+  .tab-btn.active::after { content: ''; position: absolute; bottom: -3px; left: 0; right: 0; height: 3px; background: var(--accent); }
+  .tab-btn:hover:not(.active) { color: var(--cream); }
+  .page { display: none; }
+  .page.active { display: block; }
+  .container { max-width: 900px; margin: 0 auto; padding: 36px 20px 60px; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--ink); margin-bottom: 6px; }
+  .section-sub { font-size: 0.82rem; color: var(--ink-light); margin-bottom: 28px; letter-spacing: 0.04em; }
+  .revision-grid { display: grid; gap: 14px; }
+  .q-card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; box-shadow: var(--shadow); transition: box-shadow 0.2s; }
+  .q-card:hover { box-shadow: var(--shadow-hover); }
+  .q-number { display: inline-block; background: var(--ink); color: var(--cream); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; padding: 3px 10px; border-radius: 20px; margin-bottom: 10px; }
+  .q-text { font-size: 0.97rem; font-weight: 600; line-height: 1.55; margin-bottom: 14px; color: var(--ink); }
+  .options-list { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  @media (max-width: 500px) { .options-list { grid-template-columns: 1fr; } }
+  .option { display: flex; align-items: center; gap: 10px; padding: 9px 14px; border-radius: 8px; font-size: 0.88rem; border: 1.5px solid var(--border); background: var(--warm-white); color: var(--ink-light); }
+  .option.correct { background: var(--green-light); border-color: var(--green); color: var(--green); font-weight: 600; }
+  .opt-label { font-weight: 700; font-size: 0.78rem; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: var(--border); color: var(--ink-light); flex-shrink: 0; }
+  .option.correct .opt-label { background: var(--green); color: white; }
+  .checkmark { margin-left: auto; }
+  .q-parts { font-size: 0.84rem; color: var(--ink-light); margin-bottom: 10px; padding: 10px 14px; background: var(--accent-light); border-left: 3px solid var(--accent); border-radius: 0 6px 6px 0; line-height: 1.7; }
+  .test-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; margin-bottom: 28px; }
+  .score-badge { background: var(--ink); color: var(--cream); font-family: 'Playfair Display', serif; font-size: 1rem; padding: 8px 20px; border-radius: 30px; }
+  .progress-bar-wrap { flex: 1; min-width: 160px; background: var(--border); border-radius: 30px; height: 8px; overflow: hidden; }
+  .progress-bar { height: 100%; background: linear-gradient(90deg, var(--accent), var(--gold)); border-radius: 30px; transition: width 0.4s ease; }
+  .btn { font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 10px 24px; border: none; border-radius: 8px; cursor: pointer; transition: all 0.2s; }
+  .btn-primary { background: var(--accent); color: white; }
+  .btn-primary:hover { background: #b05c2a; transform: translateY(-1px); }
+  .btn-secondary { background: var(--ink); color: var(--cream); }
+  .btn-secondary:hover { background: #2a2420; transform: translateY(-1px); }
+  .btn-outline { background: transparent; color: var(--accent); border: 2px solid var(--accent); }
+  .btn-outline:hover { background: var(--accent); color: white; }
+  .test-grid { display: grid; gap: 14px; }
+  .test-card { background: white; border: 1.5px solid var(--border); border-radius: 12px; padding: 20px 22px; box-shadow: var(--shadow); }
+  .test-option { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 8px; font-size: 0.88rem; border: 1.5px solid var(--border); background: var(--warm-white); color: var(--ink); cursor: pointer; transition: all 0.15s; margin-bottom: 8px; width: 100%; text-align: left; }
+  .test-option:hover:not([disabled]) { border-color: var(--accent); background: var(--accent-light); }
+  .test-option.selected-correct { background: var(--green-light); border-color: var(--green); color: var(--green); font-weight: 600; }
+  .test-option.selected-wrong { background: var(--red-light); border-color: var(--red); color: var(--red); font-weight: 600; }
+  .test-option.reveal-correct { background: var(--green-light); border-color: var(--green); color: var(--green); }
+  .test-option[disabled] { cursor: default; }
+  .feedback-pill { display: inline-block; padding: 4px 14px; border-radius: 20px; font-size: 0.78rem; font-weight: 700; margin-top: 10px; letter-spacing: 0.06em; }
+  .pill-correct { background: var(--green-light); color: var(--green); }
+  .pill-wrong { background: var(--red-light); color: var(--red); }
+  .result-card { background: white; border: 2px solid var(--accent); border-radius: 16px; padding: 36px; text-align: center; box-shadow: var(--shadow-hover); margin-bottom: 28px; }
+  .result-card h2 { font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 10px; }
+  .result-score { font-size: 3.5rem; font-weight: 700; color: var(--accent); line-height: 1; margin: 14px 0; }
+  .result-meta { font-size: 0.9rem; color: var(--ink-light); }
+  .result-actions { display: flex; gap: 12px; justify-content: center; margin-top: 24px; flex-wrap: wrap; }
+  .stem-box { background: var(--accent-light); border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0; padding: 12px 16px; font-size: 0.84rem; color: var(--ink-light); margin-bottom: 14px; font-style: italic; }
+  hr.divider { border: none; border-top: 1px dashed var(--border); margin: 8px 0 16px; }
 </style>
 </head>
 <body>
 
-<div class="header">
-  <div class="school-name">Jahanara Israil School &amp; College</div>
-  <div class="subtitle">Test Examination · Biology First Paper · Multiple Choice Questions</div>
-  <div class="meta-row">
-    <span>Subject Code: 178</span>
-    <span>Time: 25 Minutes</span>
-    <span>Full Marks: 25</span>
+<header>
+  <h1>Jahanara Israil School &amp; College</h1>
+  <p>Biology 2nd Paper &middot; Grade XII &middot; Sub. Code 179 &middot; Test Exam 2026</p>
+</header>
+
+<div class="tab-nav">
+  <button class="tab-btn active" onclick="switchTab('revision')">&#128214; Revision Mode</button>
+  <button class="tab-btn" onclick="switchTab('test')">&#9998; Test Mode</button>
+</div>
+
+<div id="revision" class="page active">
+  <div class="container">
+    <div class="section-title">Answer Key &amp; Revision</div>
+    <div class="section-sub">All 25 questions with correct answers highlighted in green</div>
+    <div class="revision-grid" id="revisionGrid"></div>
   </div>
 </div>
 
-<div class="progress-bar-wrap"><div class="progress-bar" id="progressBar"></div></div>
-<div class="score-panel"><div class="score-badge" id="scoreBadge">0 / 25</div></div>
-
-<div class="container">
-  <div class="section-label">Answer All Questions</div>
-  <div id="quiz"></div>
-  <div class="result-panel" id="resultPanel">
-    <div class="result-score" id="resultScore">0/25</div>
-    <div class="result-label">Final Score</div>
-    <div class="result-msg" id="resultMsg"></div>
-    <button class="reset-btn" onclick="resetQuiz()">Try Again</button>
+<div id="test" class="page">
+  <div class="container">
+    <div id="testArea"></div>
   </div>
 </div>
 
 <script>
-// SVG diagrams for stem-based questions
-const stemImages = {
-  // Q7-8: Stem with 'M' marked apical cell at top
-  '6': `<div class="stem-fig">
-    <div class="stem-fig-label">Refer to the figure below for Questions 7–8</div>
-    <svg viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg" width="160" height="220">
-      <!-- Main stem body -->
-      <rect x="60" y="80" width="40" height="120" rx="4" fill="#d4e8c2" stroke="#3d5a3e" stroke-width="1.5"/>
-      <!-- Stem segments/nodes -->
-      <line x1="55" y1="110" x2="105" y2="110" stroke="#3d5a3e" stroke-width="1"/>
-      <line x1="55" y1="140" x2="105" y2="140" stroke="#3d5a3e" stroke-width="1"/>
-      <line x1="55" y1="170" x2="105" y2="170" stroke="#3d5a3e" stroke-width="1"/>
-      <!-- Apical tip -->
-      <ellipse cx="80" cy="72" rx="18" ry="28" fill="#b8d4a0" stroke="#3d5a3e" stroke-width="1.5"/>
-      <!-- Inner apical cell shape -->
-      <ellipse cx="80" cy="62" rx="9" ry="14" fill="#7aab5a" stroke="#2d4a2e" stroke-width="1"/>
-      <!-- M label line -->
-      <line x1="90" y1="58" x2="120" y2="42" stroke="#1a1208" stroke-width="1"/>
-      <text x="123" y="45" font-family="serif" font-size="13" font-style="italic" fill="#1a1208" font-weight="bold">M</text>
-      <!-- Root-like base -->
-      <line x1="80" y1="200" x2="65" y2="218" stroke="#3d5a3e" stroke-width="1.5"/>
-      <line x1="80" y1="200" x2="80" y2="220" stroke="#3d5a3e" stroke-width="1.5"/>
-      <line x1="80" y1="200" x2="95" y2="218" stroke="#3d5a3e" stroke-width="1.5"/>
-      <!-- Small leaves -->
-      <ellipse cx="52" cy="105" rx="14" ry="7" fill="#c8e0a8" stroke="#3d5a3e" stroke-width="1" transform="rotate(-30 52 105)"/>
-      <ellipse cx="108" cy="135" rx="14" ry="7" fill="#c8e0a8" stroke="#3d5a3e" stroke-width="1" transform="rotate(30 108 135)"/>
-    </svg>
-  </div>`,
-
-  // Q12-13: Liverwort/bryophyte thallus cross-section with P, Q, R labels
-  '11': `<div class="stem-fig">
-    <div class="stem-fig-label">Refer to the figure below for Questions 12–13</div>
-    <svg viewBox="0 0 260 180" xmlns="http://www.w3.org/2000/svg" width="260" height="180">
-      <!-- Thallus body (lobed shape) -->
-      <path d="M20,110 Q40,60 80,55 Q100,50 120,58 Q140,50 160,55 Q200,60 220,110 Q230,130 200,140 Q160,155 120,158 Q80,155 40,140 Q10,130 20,110Z" fill="#d4e8c2" stroke="#3d5a3e" stroke-width="1.5"/>
-      <!-- Upper epidermis pores/texture -->
-      <ellipse cx="70" cy="72" rx="8" ry="4" fill="#a8c880" stroke="#5a8a3e" stroke-width="0.8"/>
-      <ellipse cx="100" cy="65" rx="8" ry="4" fill="#a8c880" stroke="#5a8a3e" stroke-width="0.8"/>
-      <ellipse cx="130" cy="65" rx="8" ry="4" fill="#a8c880" stroke="#5a8a3e" stroke-width="0.8"/>
-      <ellipse cx="160" cy="70" rx="8" ry="4" fill="#a8c880" stroke="#5a8a3e" stroke-width="0.8"/>
-      <!-- Midrib -->
-      <path d="M80,80 Q120,78 160,80" stroke="#3d5a3e" stroke-width="3" fill="none"/>
-      <!-- Rhizoids from base -->
-      <line x1="90" y1="152" x2="85" y2="170" stroke="#5a3e2e" stroke-width="1"/>
-      <line x1="105" y1="156" x2="100" y2="175" stroke="#5a3e2e" stroke-width="1"/>
-      <line x1="120" y1="157" x2="118" y2="177" stroke="#5a3e2e" stroke-width="1"/>
-      <line x1="135" y1="156" x2="138" y2="175" stroke="#5a3e2e" stroke-width="1"/>
-      <line x1="150" y1="153" x2="153" y2="170" stroke="#5a3e2e" stroke-width="1.2"/>
-      <!-- Unicellular rhizoid (single line, thinner) -->
-      <line x1="115" y1="157" x2="112" y2="178" stroke="#5a3e2e" stroke-width="0.6" stroke-dasharray="2,1"/>
-      <!-- P label - upper epidermis -->
-      <line x1="120" y1="60" x2="120" y2="38" stroke="#1a1208" stroke-width="0.8"/>
-      <text x="123" y="35" font-family="serif" font-size="13" font-weight="bold" fill="#1a1208">P</text>
-      <!-- Q label - multicellular rhizoid -->
-      <line x1="100" y1="173" x2="80" y2="182" stroke="#1a1208" stroke-width="0.8"/>
-      <text x="60" y="186" font-family="serif" font-size="13" font-weight="bold" fill="#1a1208">Q</text>
-      <!-- R label - unicellular rhizoid -->
-      <line x1="113" y1="178" x2="145" y2="186" stroke="#1a1208" stroke-width="0.8"/>
-      <text x="148" y="189" font-family="serif" font-size="13" font-weight="bold" fill="#1a1208">R</text>
-    </svg>
-  </div>`,
-
-  // Q18-19: Hadrocentric vascular bundle (xylem surrounded by phloem)
-  '17': `<div class="stem-fig">
-    <div class="stem-fig-label">Refer to the figure below for Questions 18–19</div>
-    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
-      <!-- Outer phloem ring -->
-      <circle cx="100" cy="105" r="70" fill="#f0e0c0" stroke="#8b6020" stroke-width="1.5"/>
-      <!-- Phloem cells pattern -->
-      <circle cx="100" cy="105" r="70" fill="none" stroke="#c8a060" stroke-width="12" stroke-dasharray="6,3"/>
-      <!-- Inner xylem core -->
-      <circle cx="100" cy="105" r="42" fill="#c8e0f8" stroke="#2060a0" stroke-width="1.5"/>
-      <!-- Xylem vessels -->
-      <circle cx="100" cy="105" r="14" fill="#90b8e8" stroke="#2060a0" stroke-width="1"/>
-      <circle cx="78" cy="92" r="10" fill="#90b8e8" stroke="#2060a0" stroke-width="1"/>
-      <circle cx="122" cy="92" r="10" fill="#90b8e8" stroke="#2060a0" stroke-width="1"/>
-      <circle cx="78" cy="118" r="10" fill="#90b8e8" stroke="#2060a0" stroke-width="1"/>
-      <circle cx="122" cy="118" r="10" fill="#90b8e8" stroke="#2060a0" stroke-width="1"/>
-      <!-- Phloem label -->
-      <line x1="155" y1="55" x2="138" y2="68" stroke="#1a1208" stroke-width="0.8"/>
-      <text x="118" y="48" font-family="serif" font-size="12" fill="#1a1208">Phloem</text>
-      <!-- Xylem label -->
-      <line x1="155" y1="138" x2="138" y2="128" stroke="#1a1208" stroke-width="0.8"/>
-      <text x="120" y="152" font-family="serif" font-size="12" fill="#1a1208">Xylem</text>
-    </svg>
-  </div>`
-};
-
 const questions = [
-  {
-    q: "In which stage chromosomal dance is observed?",
-    opts: ["Prophase", "Prometaphase", "Metaphase", "Anaphase"],
-    ans: 1
-  },
-  {
-    q: "Characteristics of meristematic tissue are:\ni. Cell wall is composed of only cellulose.\nii. Cell vacuole is absent.\niii. Intercellular space is absent.\n\nWhich one is the correct answer?",
-    opts: ["i, ii", "ii, iii", "i, iii", "i, ii, and iii"],
-    ans: 3
-  },
-  {
-    q: "<em>Phytophthora</em> is an example of ____?",
-    opts: ["Coenocytic fungi", "Parasitic fungi", "Higher fungi", "Symbiotic fungi"],
-    ans: 0
-  },
-  {
-    q: "Which granular structures are present on the surface of the endoplasmic reticulum?",
-    opts: ["Gene", "Vesicle", "Lysosome", "Ribosome"],
-    ans: 3
-  },
-  {
-    q: "Which one of the following ions do plants absorb slowly?",
-    opts: ["Ca⁺⁺", "Mn⁺⁺", "K⁺", "Mg⁺⁺"],
-    ans: 1
-  },
-  {
-    q: "Changes in ovary and ovule after fertilization?\ni. Ovum → embryo\nii. Intine → testa\niii. Ovule stalk → seed stalk\n\nWhich one is correct?",
-    opts: ["i, ii", "i, iii", "ii, iii", "i, ii, and iii"],
-    ans: 3
-  },
-  {
-    q: "What is the name of the 'M' marked area in the stem (shown in figure)?",
-    opts: ["Holdfast", "Substratum", "Apical cell", "Pyrenoid"],
-    ans: 2
-  },
-  {
-    q: "Which one below is the most common asexual reproductive process for the stem?",
-    opts: ["Zoospore", "Aplanospore", "Hipnospore", "Palmella stage"],
-    ans: 3
-  },
-  {
-    q: "Which one below is an active absorption theory?",
-    opts: ["Mass flow", "Ion exchange", "Lecithin theory", "Donnan equilibrium"],
-    ans: 3
-  },
-  {
-    q: "Which one below is a spherical bacterium?",
-    opts: ["Staphylococcus aureus", "Escherichia Coli", "Streptobacillus moniliformis", "Vibrio cholerae"],
-    ans: 0
-  },
-  {
-    q: "Information regarding transpiration is:\ni. Blue light speeds up the opening of stomata.\nii. ↓humidity = ↑ transpiration rate.\niii. Fewer roots compared to leaves causes decrease in transpiration.\n\nWhat is the correct answer?",
-    opts: ["i, ii", "i, iii", "ii, iii", "i, ii, and iii"],
-    ans: 0
-  },
-  {
-    q: "'P' marked area of the stem is called—",
-    opts: ["Upper epidermis", "Lower epidermis", "Storage region", "Assimilatory region"],
-    ans: 3
-  },
-  {
-    q: "Information regarding the stem is given below:\ni. This is a thallus body of a bryophyta.\nii. Q is a multicellular rhizoid.\niii. R is a unicellular rhizoid.\n\nWhat is the correct answer?",
-    opts: ["i, ii", "i, iii", "ii, iii", "i, ii, iii"],
-    ans: 1
-  },
-  {
-    q: "Which one below is the protein subunit for a virus?",
-    opts: ["Capsid", "Capsomere", "Nucleocapsid", "Microfibril"],
-    ans: 1
-  },
-  {
-    q: "Characteristics of genetic code are:\ni. Four adjacent nucleotides form a code for an amino acid.\nii. Three adjacent nucleosides form a code for an amino acid.\niii. AUG always starts chain synthesis.\n\nWhat is the correct answer?",
-    opts: ["i", "ii", "iii", "ii, and iii"],
-    ans: 3
-  },
-  {
-    q: "Which microorganism is the source of the insect-resistant gene introduced into Bt brinjal?",
-    opts: ["Bacillus subtilis", "Bacillus thuringiensis", "Escherichia coli", "Agrobacteriam tumefacians"],
-    ans: 1
-  },
-  {
-    q: "Which one is a micronutrient among the essential nutrients?",
-    opts: ["Nitrogen", "Boron", "Phosphorus", "Potassium"],
-    ans: 1
-  },
-  {
-    q: "The figure given in the stem is an example of which vascular bundle?",
-    opts: ["Leptocentric", "Amphivasal", "Bi collateral", "Hadrocentric"],
-    ans: 3
-  },
-  {
-    q: "Examples of this type of vascular bundle are:\ni. Pteris  ii. Selaginella  iii. Dracaena\n\nWhich one is the correct answer?",
-    opts: ["i, ii", "ii, iii", "i, iii", "i, ii, and iii"],
-    ans: 1
-  },
-  {
-    q: "Which vitamin is present in golden rice?",
-    opts: ["Vitamin A", "Vitamin B", "Vitamin C", "Vitamin D"],
-    ans: 0
-  },
-  {
-    q: "Who has been sequenced the genome of jute?",
-    opts: ["Dr. Mong Sano Marma", "Prof. M. Niamul Naser", "Dr. Maqsudul Alam", "Prof. Mohammad Riazul Islam"],
-    ans: 2
-  },
-  {
-    q: "Chemical components of the centriole are:\ni. protein\nii. lipid\niii. ATP\n\nWhich one is correct?",
-    opts: ["i, ii", "i, iii", "ii, iii", "i, ii, and iii"],
-    ans: 1
-  },
-  {
-    q: "Which one is the carrier of the ring spot virus of Papaya?",
-    opts: ["Air", "Water", "Insects", "Soil"],
-    ans: 2
-  },
-  {
-    q: "Which one below is an example of a zygomorphic flower?",
-    opts: ["Bean", "Orchid", "Mustard", "China rose"],
-    ans: 0
-  },
-  {
-    q: "Which enzyme breaks down the hydrogen bond during DNA replication?",
-    opts: ["DNA ligase", "Helicase", "Primase", "Topoisomerase"],
-    ans: 1
-  }
+  { id:1, q:"Who introduced Trinomial nomenclature?", opts:["Linnaeus","Schlegel","Lamarck","Mayr"], ans:1 },
+  { id:2, q:"Self-fertilization occurred in which phylum?", opts:["Cnidaria","Porifera","Platyhelminthes","Nematoda"], ans:2 },
+  { id:3, q:"Which one of the following is the feature of penetrant nematocyst?", opts:["closed at the tip","spiny thread","Butt is stout","secrets sticky juice"], ans:2 },
+  { id:4, q:"Haemolymph contains — i) amino acid &nbsp; ii) Uric acid &nbsp; iii) carbondioxide<br>Which one is correct?", parts:["i) amino acid","ii) Uric acid","iii) carbondioxide"], opts:["i, ii","i, iii","ii, iii","i, ii and iii"], ans:1 },
+  { id:5, q:"What type of scale found in Rui fish?", opts:["Ganoid","Cycloid","Ctenoid","Placoid"], ans:1 },
+  { id:6, q:"Which one is the paired fin of <em>Labeo</em>?", opts:["pectoral","anal","dorsal","caudal"], ans:0 },
+  { id:7, q:"Reason of Lub-Dub sound of the heart are — i) Systole of atrium &nbsp; ii) Systole of ventricle &nbsp; iii) Diastole of ventricle<br>Which one is correct?", parts:["i) Systole of atrium","ii) Systole of ventricle","iii) Diastole of ventricle"], opts:["i, ii","i, iii","ii, iii","i, ii and iii"], ans:2 },
+  { id:8, q:"Which is protein metabolic enzyme?", opts:["Ptyalin","Amylase","Elastase","Lecithinase"], ans:2 },
+  { id:9, q:"Which one is the name of M? (from stomach diagram)", stem:"M points to the inner lining folds of the stomach.", opts:["Serosa","Villus","Ruga","Mucosa"], ans:2 },
+  { id:10, q:"Which number of cranial nerve is extended in the organ cited in the stem?", stem:"The organ in the stem is the stomach.", opts:["viii","IX","X","xi"], ans:2 },
+  { id:11, q:"From which one sound is produced?", opts:["Vestibule","Larynx","Pharynx","Bronchus"], ans:1 },
+  { id:12, q:"Alveolus become large and damaged in which disease?", opts:["Bronchitis","Emphysema","Pleurisy","Pneumonia"], ans:1 },
+  { id:13, q:"RBC carries CO&#8322; as — i) KHCO&#8323; &nbsp; ii) NHCOOH &nbsp; iii) NaHCOOH<br>Which one is correct?", parts:["i) KHCO&#8323;","ii) NHCOOH","iii) NaHCOOH"], opts:["i, ii","i, iii","ii, iii","i, ii and iii"], ans:1 },
+  { id:14, q:"Which one secretes heparin?", opts:["Neutrophil","Basophil","Eosinophil","Monocyte"], ans:1 },
+  { id:15, q:"Which one is the nitrogenous non-protein substance in plasma?", opts:["Fibrinogen","Prothrombin","Creatin","Bilirubin"], ans:2 },
+  { id:16, q:'"Ontogeny recapitulates phylogeny" — who proposed the idea?', opts:["Lamarck","Darwin","Haeckel","Hugo de Vries"], ans:2 },
+  { id:17, q:'Which cranial bone carries the "Foramen magnum"?', opts:["occipital","Ethmoid","Sphenoid","Temporal"], ans:0 },
+  { id:18, q:"Which one is pelvic bone?", opts:["Ilium","Ileum","Scapula","Clavicle"], ans:0 },
+  { id:19, q:"Where found hyaline cartilage?", opts:["Larynx","Pinna","Epiglotis","Eustachian tube"], ans:0 },
+  { id:20, q:"Which one produced urea?", opts:["Spleen","Pancreas","Kidney","Liver"], ans:3 },
+  { id:21, q:"The steps of urine formation are — i) Ultra filtration &nbsp; ii) Reabsorption &nbsp; iii) Tubular secretion<br>Which one is correct?", parts:["i) Ultra filtration","ii) Reabsorption","iii) Tubular secretion"], opts:["i, ii","i, iii","ii, iii","i, ii and iii"], ans:3 },
+  { id:22, q:"What is the name of cranial nerve V?", opts:["oculomotor","Trigeminal","Auditory","Trochlear"], ans:1 },
+  { id:23, q:"Nerves related to eye muscle — i) Optic &nbsp; ii) Oculomotor &nbsp; iii) Trochlear<br>Which one is correct?", parts:["i) Optic","ii) Oculomotor","iii) Trochlear"], opts:["i, ii","i, iii","ii, iii","i, ii and iii"], ans:2 },
+  { id:24, q:"According to the stem what is the phenotypic ratio of F&#8322; generation?", stem:"P: &#9794; Pure black (Dominant) &times; &#9792; Pure white (Recessive) — Guinea pig", opts:["1:2:1","2:1","3:1","9:3:3:1"], ans:2 },
+  { id:25, q:"In test cross offspring will — i) Heterozygous &nbsp; ii) Heterozygous Black &nbsp; iii) Homozygous white<br>Which one is correct?", stem:"P: &#9794; Pure black (Dominant) &times; &#9792; Pure white (Recessive) — Guinea pig", parts:["i) Heterozygous","ii) Heterozygous Black","iii) Homozygous white"], opts:["i, ii","i, iii","ii, iii","i, ii and iii"], ans:3 }
 ];
 
-const labels = ['a', 'b', 'c', 'd'];
-let answered = 0;
-let correct = 0;
+const labels = ['a','b','c','d'];
 
-function buildQuiz() {
-  const container = document.getElementById('quiz');
-  container.innerHTML = '';
-  answered = 0; correct = 0;
-  updateScore();
-
-  questions.forEach((q, qi) => {
-    // Inject stem figure before its question group
-    if (stemImages[qi]) {
-      const figWrap = document.createElement('div');
-      figWrap.innerHTML = stemImages[qi];
-      container.appendChild(figWrap.firstElementChild);
-    }
-
+function buildRevision() {
+  const grid = document.getElementById('revisionGrid');
+  grid.innerHTML = '';
+  questions.forEach(q => {
     const card = document.createElement('div');
     card.className = 'q-card';
-    card.id = `card-${qi}`;
-
-    const qNum = document.createElement('div');
-    qNum.className = 'q-num';
-    qNum.textContent = `Question ${qi + 1} of ${questions.length}`;
-
-    const qText = document.createElement('div');
-    qText.className = 'q-text';
-    // Handle newlines and italic HTML
-    qText.innerHTML = q.q.replace(/\n/g, '<br>');
-
-    const opts = document.createElement('div');
-    opts.className = 'options';
-
+    let html = '<span class="q-number">Q' + q.id + '</span>';
+    if (q.stem) html += '<div class="stem-box">&#128204; ' + q.stem + '</div>';
+    if (q.parts) {
+      html += '<div class="q-parts">' + q.parts.join(' &nbsp;&nbsp; ') + '</div>';
+    }
+    html += '<div class="q-text">' + q.q + '</div>';
+    html += '<div class="options-list">';
     q.opts.forEach((opt, oi) => {
-      const btn = document.createElement('button');
-      btn.className = 'opt-btn';
-      btn.innerHTML = `<span class="opt-label">${labels[oi]}.</span> ${opt}`;
-      btn.onclick = () => checkAnswer(qi, oi, q.ans);
-      opts.appendChild(btn);
+      const isCorrect = oi === q.ans;
+      html += '<div class="option ' + (isCorrect ? 'correct' : '') + '">' +
+        '<span class="opt-label">' + labels[oi] + '</span>' +
+        '<span>' + opt + '</span>' +
+        (isCorrect ? '<span class="checkmark">&#10003;</span>' : '') +
+        '</div>';
     });
-
-    card.appendChild(qNum);
-    card.appendChild(qText);
-    card.appendChild(opts);
-    container.appendChild(card);
+    html += '</div>';
+    card.innerHTML = html;
+    grid.appendChild(card);
   });
 }
 
-function checkAnswer(qi, chosen, correct_idx) {
-  const card = document.getElementById(`card-${qi}`);
-  if (card.classList.contains('answered')) return;
+let shuffled = [], answered = [];
 
-  const btns = card.querySelectorAll('.opt-btn');
-  btns.forEach(b => b.disabled = true);
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
 
-  if (chosen === correct_idx) {
-    btns[chosen].classList.add('correct');
-    card.setAttribute('data-icon', '✓');
-    correct++;
-  } else {
-    btns[chosen].classList.add('wrong');
-    btns[correct_idx].classList.add('reveal-correct');
-    card.setAttribute('data-icon', '✗');
+function startTest() {
+  shuffled = shuffle(questions);
+  answered = new Array(shuffled.length).fill(null);
+  renderTest();
+}
+
+function renderTest() {
+  const area = document.getElementById('testArea');
+  const totalQ = shuffled.length;
+  const answeredCount = answered.filter(a => a !== null).length;
+  const score = answered.reduce((s, a, i) => s + (a === shuffled[i].ans ? 1 : 0), 0);
+
+  let html = '<div class="section-title">Test Mode</div>' +
+    '<div class="section-sub">Questions are shuffled every time you restart</div>' +
+    '<div class="test-header">' +
+    '<div class="score-badge">Score: ' + score + ' / ' + answeredCount + '</div>' +
+    '<div class="progress-bar-wrap"><div class="progress-bar" style="width:' + ((answeredCount/totalQ)*100) + '%"></div></div>' +
+    '<div style="font-size:0.8rem;color:var(--ink-light)">' + answeredCount + '/' + totalQ + ' answered</div>' +
+    '</div>';
+
+  if (answeredCount === totalQ) {
+    const pct = Math.round((score / totalQ) * 100);
+    const grade = pct >= 80 ? '&#127942; Excellent!' : pct >= 60 ? '&#128077; Good job!' : '&#128218; Keep practicing!';
+    html += '<div class="result-card"><h2>' + grade + '</h2>' +
+      '<div class="result-score">' + score + '/' + totalQ + '</div>' +
+      '<div class="result-meta">' + pct + '% correct</div>' +
+      '<div class="result-actions">' +
+      '<button class="btn btn-primary" onclick="startTest()">&#128256; Shuffle &amp; Retry</button>' +
+      '<button class="btn btn-secondary" onclick="switchTab(\'revision\')">&#128214; Review Answers</button>' +
+      '</div></div>';
   }
 
-  card.classList.add('answered');
-  answered++;
-  updateScore();
+  html += '<div class="test-grid">';
+  shuffled.forEach((q, qi) => {
+    const userAns = answered[qi];
+    const isAnswered = userAns !== null;
+    html += '<div class="test-card"><span class="q-number">Q' + q.id + '</span>';
+    if (q.stem) html += '<div class="stem-box">&#128204; ' + q.stem + '</div>';
+    if (q.parts) html += '<div class="q-parts">' + q.parts.join(' &nbsp;&nbsp; ') + '</div>';
+    html += '<div class="q-text">' + q.q + '</div><hr class="divider">';
+    q.opts.forEach((opt, oi) => {
+      let cls = 'test-option';
+      if (isAnswered) {
+        if (oi === q.ans) cls += ' reveal-correct';
+        if (oi === userAns && userAns !== q.ans) cls += ' selected-wrong';
+        if (oi === userAns && userAns === q.ans) cls += ' selected-correct';
+      }
+      const lbg = isAnswered && oi === q.ans ? 'background:var(--green);color:white' : '';
+      html += '<button class="' + cls + '" ' + (isAnswered ? 'disabled' : '') +
+        ' onclick="pickAnswer(' + qi + ',' + oi + ')">' +
+        '<span class="opt-label" style="' + lbg + '">' + labels[oi] + '</span>' +
+        opt + '</button>';
+    });
+    if (isAnswered) {
+      const correct = userAns === q.ans;
+      html += '<span class="feedback-pill ' + (correct ? 'pill-correct' : 'pill-wrong') + '">' +
+        (correct ? '&#10003; Correct!' : '&#10007; Wrong &mdash; correct: ' + labels[q.ans] + ') ' + q.opts[q.ans]) +
+        '</span>';
+    }
+    html += '</div>';
+  });
+  html += '</div>';
 
-  if (answered === questions.length) {
-    setTimeout(showResult, 600);
+  if (answeredCount < totalQ) {
+    html += '<div style="text-align:center;margin-top:28px"><button class="btn btn-outline" onclick="startTest()">&#128256; Restart &amp; Shuffle</button></div>';
   }
+  area.innerHTML = html;
 }
 
-function updateScore() {
-  document.getElementById('scoreBadge').textContent = `${correct} / ${questions.length}`;
-  document.getElementById('progressBar').style.width = `${(answered / questions.length) * 100}%`;
+function pickAnswer(qi, oi) {
+  if (answered[qi] !== null) return;
+  answered[qi] = oi;
+  renderTest();
+  const cards = document.querySelectorAll('.test-card');
+  if (cards[qi]) cards[qi].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
-function showResult() {
-  const panel = document.getElementById('resultPanel');
-  document.getElementById('resultScore').textContent = `${correct}/${questions.length}`;
-  const pct = Math.round((correct / questions.length) * 100);
-  let msg = '';
-  if (pct >= 90) msg = "Excellent! Outstanding performance.";
-  else if (pct >= 70) msg = "Good work! A solid understanding of the material.";
-  else if (pct >= 50) msg = "Fair attempt. Review the missed topics carefully.";
-  else msg = "Keep studying. You'll improve with practice.";
-  document.getElementById('resultMsg').textContent = `${pct}% — ${msg}`;
-  panel.classList.add('show');
-  panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
-}
-
-function resetQuiz() {
-  document.getElementById('resultPanel').classList.remove('show');
-  buildQuiz();
+function switchTab(tab) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(tab).classList.add('active');
+  document.querySelectorAll('.tab-btn')[tab === 'revision' ? 0 : 1].classList.add('active');
+  if (tab === 'test' && shuffled.length === 0) startTest();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-buildQuiz();
+buildRevision();
 </script>
 </body>
 </html>
